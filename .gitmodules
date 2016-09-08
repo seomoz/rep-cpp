@@ -1,0 +1,3 @@
+[submodule "deps/url-cpp"]
+	path = deps/url-cpp
+	url = https://github.com/seomoz/url-cpp
