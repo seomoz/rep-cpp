@@ -1,7 +1,7 @@
 CXX          ?= g++
 CXXOPTS      ?= -g -Wall -Werror -std=c++11 -Iinclude/ -Ideps/url-cpp/include
-DEBUG_OPTS   ?= -fprofile-arcs -ftest-coverage -O0 -fPIC -Ldeps/url-cpp/debug
-RELEASE_OPTS ?= -O3 -Ldeps/url-cpp/release
+DEBUG_OPTS   ?= -fprofile-arcs -ftest-coverage -O0 -fPIC
+RELEASE_OPTS ?= -O3
 BINARIES      = 
 
 all: test release/librep.o $(BINARIES)
@@ -13,7 +13,7 @@ release:
 release/bin: release
 	mkdir -p release/bin
 
-release/librep.o: release/directive.o
+release/librep.o: release/directive.o release/agent.o deps/url-cpp/release/liburl.o
 	ld -r -o $@ $^
 
 release/%.o: src/%.cpp include/%.h release
@@ -26,7 +26,7 @@ debug:
 debug/bin: debug
 	mkdir -p debug/bin
 
-debug/librep.o: debug/directive.o
+debug/librep.o: debug/directive.o debug/agent.o deps/url-cpp/debug/liburl.o
 	ld -r -o $@ $^
 
 debug/%.o: src/%.cpp include/%.h debug
@@ -36,7 +36,7 @@ test/%.o: test/%.cpp
 	$(CXX) $(CXXOPTS) $(DEBUG_OPTS) -o $@ -c $<
 
 # Tests
-test-all: test/test-all.o test/test-directive.o debug/librep.o
+test-all: test/test-all.o test/test-agent.o test/test-directive.o debug/librep.o
 	$(CXX) $(CXXOPTS) $(DEBUG_OPTS) -o $@ $^ -lgtest -lpthread
 
 # Bench
