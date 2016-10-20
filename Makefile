@@ -19,9 +19,6 @@ release/librep.o: release/directive.o
 release/%.o: src/%.cpp include/%.h release
 	$(CXX) $(CXXOPTS) $(RELEASE_OPTS) -o $@ -c $<
 
-bench: src/bench.cpp release/librep.o
-	$(CXX) $(CXXOPTS) $(RELEASE_OPTS) -o $@ $^
-
 # Debug libraries
 debug:
 	mkdir -p debug
@@ -41,6 +38,10 @@ test/%.o: test/%.cpp
 # Tests
 test-all: test/test-all.o test/test-directive.o debug/librep.o
 	$(CXX) $(CXXOPTS) $(DEBUG_OPTS) -o $@ $^ -lgtest -lpthread
+
+# Bench
+bench: bench.cpp release/librep.o
+	$(CXX) $(CXXOPTS) $(RELEASE_OPTS) -o $@ $< release/librep.o
 
 .PHONY: test
 test: test-all
