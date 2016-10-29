@@ -13,6 +13,9 @@ release:
 release/bin: release
 	mkdir -p release/bin
 
+deps/url-cpp/release/liburl.o: deps/url-cpp/* deps/url-cpp/include/* deps/url-cpp/src/*
+	make -C deps/url-cpp release/liburl.o
+
 release/librep.o: release/directive.o release/agent.o deps/url-cpp/release/liburl.o
 	ld -r -o $@ $^
 
@@ -25,6 +28,9 @@ debug:
 
 debug/bin: debug
 	mkdir -p debug/bin
+
+deps/url-cpp/debug/liburl.o: deps/url-cpp/* deps/url-cpp/include/* deps/url-cpp/src/*
+	make -C deps/url-cpp debug/liburl.o
 
 debug/librep.o: debug/directive.o debug/agent.o deps/url-cpp/debug/liburl.o
 	ld -r -o $@ $^
@@ -49,4 +55,4 @@ test: test-all
 	./scripts/check-coverage.sh $(PWD)
 
 clean:
-	rm -rf debug release test-all bench
+	rm -rf debug release test-all bench test/*.o deps/url-cpp/{debug,release}
