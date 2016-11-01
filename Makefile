@@ -1,6 +1,6 @@
 CXX          ?= g++
-CXXOPTS      ?= -g -Wall -Werror -std=c++11 -Iinclude/ -Ideps/url-cpp/include
-DEBUG_OPTS   ?= -fprofile-arcs -ftest-coverage -O0 -fPIC
+CXXOPTS      ?= -Wall -Werror -std=c++11 -Iinclude/ -Ideps/url-cpp/include
+DEBUG_OPTS   ?= -g -fprofile-arcs -ftest-coverage -O0 -fPIC
 RELEASE_OPTS ?= -O3
 BINARIES      = 
 
