@@ -1,0 +1,68 @@
+#include <algorithm>
+
+#include "url.h"
+
+#include "agent.h"
+#include "directive.h"
+
+namespace Rep
+{
+    Agent& Agent::allow(const std::string& query)
+    {
+        directives_.push_back(Directive(escape(query), true));
+        sorted_ = false;
+        return *this;
+    }
+
+    Agent& Agent::disallow(const std::string& query)
+    {
+        if (query.empty())
+        {
+            // Special case: "Disallow:" means "Allow: /"
+            directives_.push_back(Directive(query, true));
+        }
+        else
+        {
+            directives_.push_back(Directive(escape(query), false));
+        }
+        sorted_ = false;
+        return *this;
+    }
+
+    const std::vector<Directive>& Agent::directives() const
+    {
+        if (!sorted_)
+        {
+            std::sort(directives_.begin(), directives_.end(), [](const Directive& a, const Directive& b) {
+                return b.priority() < a.priority();
+            });
+            sorted_ = true;
+        }
+        return directives_;
+    }
+
+    bool Agent::allowed(const std::string& query) const
+    {
+        std::string path(escape(query));
+
+        if (path.compare("/robots.txt") == 0)
+        {
+            return true;
+        }
+
+        std::string escaped = escape(path);
+        for (auto directive : directives())
+        {
+            if (directive.match(escaped))
+            {
+                return directive.allowed();
+            }
+        }
+        return true;
+    }
+
+    std::string Agent::escape(const std::string& query)
+    {
+        return Url::Url(query).defrag().escape().fullpath();
+    }
+}
