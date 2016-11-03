@@ -50,10 +50,9 @@ namespace Rep
             return true;
         }
 
-        std::string escaped = escape(path);
         for (auto directive : directives())
         {
-            if (directive.match(escaped))
+            if (directive.match(path))
             {
                 return directive.allowed();
             }
