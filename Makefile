@@ -16,7 +16,7 @@ release/bin: release
 deps/url-cpp/release/liburl.o: deps/url-cpp/* deps/url-cpp/include/* deps/url-cpp/src/*
 	make -C deps/url-cpp release/liburl.o
 
-release/librep.o: release/directive.o release/agent.o deps/url-cpp/release/liburl.o
+release/librep.o: release/directive.o release/agent.o release/robots.o deps/url-cpp/release/liburl.o
 	ld -r -o $@ $^
 
 release/%.o: src/%.cpp include/%.h release
@@ -32,7 +32,7 @@ debug/bin: debug
 deps/url-cpp/debug/liburl.o: deps/url-cpp/* deps/url-cpp/include/* deps/url-cpp/src/*
 	make -C deps/url-cpp debug/liburl.o
 
-debug/librep.o: debug/directive.o debug/agent.o deps/url-cpp/debug/liburl.o
+debug/librep.o: debug/directive.o debug/agent.o debug/robots.o deps/url-cpp/debug/liburl.o
 	ld -r -o $@ $^
 
 debug/%.o: src/%.cpp include/%.h debug
@@ -42,7 +42,7 @@ test/%.o: test/%.cpp
 	$(CXX) $(CXXOPTS) $(DEBUG_OPTS) -o $@ -c $<
 
 # Tests
-test-all: test/test-all.o test/test-agent.o test/test-directive.o debug/librep.o
+test-all: test/test-all.o test/test-agent.o test/test-directive.o test/test-robots.o debug/librep.o
 	$(CXX) $(CXXOPTS) $(DEBUG_OPTS) -o $@ $^ -lgtest -lpthread
 
 # Bench

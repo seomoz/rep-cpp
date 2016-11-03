@@ -3,6 +3,7 @@
 #include <ctime>
 
 #include "directive.h"
+#include "robots.h"
 
 /**
  * Run func() `count` times in each of `runs` experiments, where `name` provides a
@@ -51,5 +52,26 @@ int main(int argc, char* argv[]) {
     directive = Rep::Directive("/path/*/with/**/wildcards/*", true);
     bench("directive wildcard check", count, runs, [directive]() {
         directive.match("/path/is/with/a/few/wildcards/");
+    });
+
+    std::string content =
+        "# /robots.txt for http://www.fict.org/\n"
+        "# comments to webmaster@fict.org\n"
+        "\n"
+        "User-agent: unhipbot\n"
+        "Disallow: /\n"
+        "\n"
+        "User-agent: webcrawler\n"
+        "User-agent: excite\n"
+        "Disallow:\n"
+        "\n"
+        "User-agent: *\n"
+        "Disallow: /org/plans.html\n"
+        "Allow: /org/\n"
+        "Allow: /serv\n"
+        "Allow: /~mak\n"
+        "Disallow: /\n";
+    bench("parse RFC", count / 10, runs, [content]() {
+        Rep::Robots robot(content);
     });
 }
