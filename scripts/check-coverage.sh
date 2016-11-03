@@ -17,6 +17,7 @@ results=`gcovr \
     --print-summary \
     --object-directory=${root} \
     --exclude test \
+    --exclude deps/ \
     --exclude src/psl.cpp \
     --exclude src/punycode.cpp \
     --exclude src/url.cpp \
