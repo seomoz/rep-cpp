@@ -165,6 +165,28 @@ TEST(RobotsTest, SkipMalformedLine)
     EXPECT_TRUE(robot.allowed("/no/colon/in/this/line", "agent"));
 }
 
+TEST(RobotsTest, RobotsUrlHttp)
+{
+    std::string url("http://user@example.com:80/path;params?query#fragment");
+    std::string expected("http://example.com/robots.txt");
+    EXPECT_EQ(expected, Rep::Robots::robotsUrl(url));
+}
+
+TEST(RobotsTest, RobotsUrlHttps)
+{
+    std::string url("https://user@example.com:443/path;params?query#fragment");
+    std::string expected("https://example.com/robots.txt");
+    EXPECT_EQ(expected, Rep::Robots::robotsUrl(url));
+}
+
+TEST(RobotsTest, RobotsUrlNonDefaultPort)
+{
+    std::string url("http://user@example.com:8080/path;params?query#fragment");
+    std::string expected("http://example.com:8080/robots.txt");
+    EXPECT_EQ(expected, Rep::Robots::robotsUrl(url));
+}
+
+
 TEST(RobotsTest, RfcExample)
 {
     std::string content =
