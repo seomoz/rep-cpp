@@ -46,6 +46,11 @@ namespace Rep
          */
         bool allowed(const std::string& path, const std::string& name) const;
 
+        /**
+         * Return the robots.txt URL corresponding to the provided URL.
+         */
+        static std::string robotsUrl(const std::string& url);
+
     private:
         static void strip(std::string& string);
 

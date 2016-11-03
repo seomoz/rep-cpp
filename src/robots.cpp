@@ -6,6 +6,8 @@
 #include <iostream>
 #include <unordered_map>
 
+#include "url.h"
+
 #include "robots.h"
 
 namespace Rep
@@ -159,5 +161,17 @@ namespace Rep
     bool Robots::allowed(const std::string& path, const std::string& name) const
     {
         return agent(name).allowed(path);
+    }
+
+    std::string Robots::robotsUrl(const std::string& url)
+    {
+        return Url::Url(url)
+            .setUserinfo("")
+            .setPath("robots.txt")
+            .setParams("")
+            .setQuery("")
+            .setFragment("")
+            .remove_default_port()
+            .str();
     }
 }
