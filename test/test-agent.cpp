@@ -68,3 +68,17 @@ TEST(AgentTest, AcceptsFullUrl)
     EXPECT_FALSE(agent.allowed(
         "http://userinfo@exmaple.com:10/path;params?query#fragment"));
 }
+
+TEST(AgentTest, QueryOnly)
+{
+    Rep::Agent agent = Rep::Agent().disallow("/?");
+    EXPECT_TRUE(agent.allowed("/"));
+    EXPECT_FALSE(agent.allowed("/?query"));
+}
+
+TEST(AgentTest, ParamsOnly)
+{
+    Rep::Agent agent = Rep::Agent().disallow("/;");
+    EXPECT_TRUE(agent.allowed("/"));
+    EXPECT_FALSE(agent.allowed("/;params"));
+}
