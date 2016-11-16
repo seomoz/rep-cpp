@@ -65,6 +65,9 @@ namespace Rep
         {
             if (key.compare("user-agent") == 0)
             {
+                // Store the user agent string as lowercased
+                std::transform(value.begin(), value.end(), value.begin(), ::tolower);
+
                 if (last_agent)
                 {
                     group.push_back(value);
