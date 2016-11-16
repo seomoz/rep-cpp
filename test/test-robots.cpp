@@ -122,7 +122,7 @@ TEST(RobotsTest, ExposesSitemaps)
 TEST(RobotsTest, CaseInsensitivity)
 {
     std::string content =
-        "User-agent: agent\n"
+        "User-agent: Agent\n"
         "Disallow: /path\n";
     Rep::Robots robot(content);
     EXPECT_FALSE(robot.allowed("/path", "agent"));
