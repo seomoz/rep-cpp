@@ -126,10 +126,6 @@ namespace Rep
                     std::cerr << "Could not parse " << value << " as float." << std::endl;
                 }
             }
-            else
-            {
-                std::cerr << "Unknown directive." << std::endl;
-            }
         }
 
         if (!agent_name.empty())
