@@ -59,13 +59,13 @@ TEST(DirectiveTest, WildcardTest)
     Rep::Directive parsed(directive, true);
     for (auto example : examples)
     {
-        EXPECT_TRUE(parsed.match(example)) << 
+        EXPECT_TRUE(parsed.match(example)) <<
             example << " didn't match " << directive;
     }
 
     for (auto example : antiexamples)
     {
-        EXPECT_FALSE(parsed.match(example)) << 
+        EXPECT_FALSE(parsed.match(example)) <<
             example << " matched " << directive;
     }
 }
@@ -83,13 +83,13 @@ TEST(DirectiveTest, MultipleWildcardTest)
     Rep::Directive parsed(directive, true);
     for (auto example : examples)
     {
-        EXPECT_TRUE(parsed.match(example)) << 
+        EXPECT_TRUE(parsed.match(example)) <<
             example << " didn't match " << directive;
     }
 
     for (auto example : antiexamples)
     {
-        EXPECT_FALSE(parsed.match(example)) << 
+        EXPECT_FALSE(parsed.match(example)) <<
             example << " matched " << directive;
     }
 }
@@ -139,13 +139,13 @@ TEST(GoogleTest, Prefix)
     Rep::Directive parsed(directive, true);
     for (auto example : examples)
     {
-        EXPECT_TRUE(parsed.match(example)) << 
+        EXPECT_TRUE(parsed.match(example)) <<
             example << " didn't match " << directive;
     }
 
     for (auto example : antiexamples)
     {
-        EXPECT_FALSE(parsed.match(example)) << 
+        EXPECT_FALSE(parsed.match(example)) <<
             example << " matched " << directive;
     }
 }
@@ -169,13 +169,13 @@ TEST(GoogleTest, TrailingWildcard)
     Rep::Directive parsed(directive, true);
     for (auto example : examples)
     {
-        EXPECT_TRUE(parsed.match(example)) << 
+        EXPECT_TRUE(parsed.match(example)) <<
             example << " didn't match " << directive;
     }
 
     for (auto example : antiexamples)
     {
-        EXPECT_FALSE(parsed.match(example)) << 
+        EXPECT_FALSE(parsed.match(example)) <<
             example << " matched " << directive;
     }
 }
@@ -196,13 +196,13 @@ TEST(GoogleTest, Directory)
     Rep::Directive parsed(directive, true);
     for (auto example : examples)
     {
-        EXPECT_TRUE(parsed.match(example)) << 
+        EXPECT_TRUE(parsed.match(example)) <<
             example << " didn't match " << directive;
     }
 
     for (auto example : antiexamples)
     {
-        EXPECT_FALSE(parsed.match(example)) << 
+        EXPECT_FALSE(parsed.match(example)) <<
             example << " matched " << directive;
     }
 }
@@ -224,13 +224,13 @@ TEST(GoogleTest, WildcardExtension)
     Rep::Directive parsed(directive, true);
     for (auto example : examples)
     {
-        EXPECT_TRUE(parsed.match(example)) << 
+        EXPECT_TRUE(parsed.match(example)) <<
             example << " didn't match " << directive;
     }
 
     for (auto example : antiexamples)
     {
-        EXPECT_FALSE(parsed.match(example)) << 
+        EXPECT_FALSE(parsed.match(example)) <<
             example << " matched " << directive;
     }
 }
@@ -251,13 +251,13 @@ TEST(GoogleTest, WildcardExtensionEnd)
     Rep::Directive parsed(directive, true);
     for (auto example : examples)
     {
-        EXPECT_TRUE(parsed.match(example)) << 
+        EXPECT_TRUE(parsed.match(example)) <<
             example << " didn't match " << directive;
     }
 
     for (auto example : antiexamples)
     {
-        EXPECT_FALSE(parsed.match(example)) << 
+        EXPECT_FALSE(parsed.match(example)) <<
             example << " matched " << directive;
     }
 }
@@ -275,13 +275,13 @@ TEST(GoogleTest, FishStarExtension)
     Rep::Directive parsed(directive, true);
     for (auto example : examples)
     {
-        EXPECT_TRUE(parsed.match(example)) << 
+        EXPECT_TRUE(parsed.match(example)) <<
             example << " didn't match " << directive;
     }
 
     for (auto example : antiexamples)
     {
-        EXPECT_FALSE(parsed.match(example)) << 
+        EXPECT_FALSE(parsed.match(example)) <<
             example << " matched " << directive;
     }
 }
