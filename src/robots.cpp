@@ -109,7 +109,7 @@ namespace Rep
             {
                 if (agent_name.empty())
                 {
-                    throw std::invalid_argument("Need User-Agentm");
+                    throw std::invalid_argument("Need User-Agent");
                 }
                 current->second.allow(value);
             }
