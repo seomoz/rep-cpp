@@ -101,7 +101,8 @@ namespace Rep
             {
                 if (agent_name.empty())
                 {
-                    throw std::invalid_argument("Need User-Agent");
+                    throw std::invalid_argument(
+                        "Need User-Agent before Disallow");
                 }
                 current->second.disallow(value);
             }
@@ -109,7 +110,8 @@ namespace Rep
             {
                 if (agent_name.empty())
                 {
-                    throw std::invalid_argument("Need User-Agent");
+                    throw std::invalid_argument(
+                        "Need User-Agent before Allow");
                 }
                 current->second.allow(value);
             }
@@ -117,7 +119,8 @@ namespace Rep
             {
                 if (agent_name.empty())
                 {
-                    throw std::invalid_argument("Need User-Agent");
+                    throw std::invalid_argument(
+                        "Need User-Agent before Crawl-Delay");
                 }
 
                 try
