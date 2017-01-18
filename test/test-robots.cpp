@@ -139,7 +139,7 @@ TEST(RobotsTest, Empty)
 
 TEST(RobotsTest, Comments)
 {
-    std::string content = 
+    std::string content =
         "User-Agent: *  # comment saying it's the default agent\n"
         "Disallow: /\n";
     Rep::Robots robot(content);
@@ -148,7 +148,7 @@ TEST(RobotsTest, Comments)
 
 TEST(RobotsTest, AcceptsFullUrl)
 {
-    std::string content = 
+    std::string content =
         "User-Agent: agent\n"
         "Disallow: /path;params?query\n";
     Rep::Robots robot(content);
