@@ -186,7 +186,6 @@ TEST(RobotsTest, RobotsUrlNonDefaultPort)
     EXPECT_EQ(expected, Rep::Robots::robotsUrl(url));
 }
 
-
 TEST(RobotsTest, RfcExample)
 {
     std::string content =
@@ -259,4 +258,14 @@ TEST(RobotsTest, RfcExample)
     EXPECT_FALSE(robot.allowed("/org/plans.html", "anything"));
     EXPECT_FALSE(robot.allowed("/%7Ejim/jim.html", "anything"));
     EXPECT_TRUE(robot.allowed("/%7Emak/mak.html", "anything"));
+}
+
+TEST(RobotsTest, IgnoreBOM)
+{
+    std::string content =
+        "\xEF\xBB\xBFuser-agent: *\n"
+        "disallow: /disallowed\n";
+    Rep::Robots robot(content);
+    EXPECT_TRUE(robot.allowed("/", "bot"));
+    EXPECT_FALSE(robot.allowed("/disallowed", "bot"));
 }
