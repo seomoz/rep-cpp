@@ -57,6 +57,10 @@ namespace Rep
     {
         std::string agent_name("");
         std::istringstream input(content);
+        if (content.compare(0, 3, "\xEF\xBB\xBF") == 0)
+        {
+            input.ignore(3);
+        }
         std::string key, value;
         std::vector<std::string> group;
         bool last_agent = false;
