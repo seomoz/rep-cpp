@@ -55,7 +55,7 @@ namespace Rep
 
     Robots::Robots(const std::string& content): agents_(), sitemaps_(), default_(agents_["*"])
     {
-        std::string agent_name("");
+        std::string agent_name("*");
         std::istringstream input(content);
         if (content.compare(0, 3, "\xEF\xBB\xBF") == 0)
         {
@@ -103,30 +103,14 @@ namespace Rep
             }
             else if (key.compare("disallow") == 0)
             {
-                if (agent_name.empty())
-                {
-                    throw std::invalid_argument(
-                        "Need User-Agent before Disallow");
-                }
                 current->second.disallow(value);
             }
             else if (key.compare("allow") == 0)
             {
-                if (agent_name.empty())
-                {
-                    throw std::invalid_argument(
-                        "Need User-Agent before Allow");
-                }
                 current->second.allow(value);
             }
             else if (key.compare("crawl-delay") == 0)
             {
-                if (agent_name.empty())
-                {
-                    throw std::invalid_argument(
-                        "Need User-Agent before Crawl-Delay");
-                }
-
                 try
                 {
                     current->second.delay(std::stof(value));
