@@ -2,22 +2,17 @@
 
 #include "robots.h"
 
-TEST(RobotsTest, DisallowFirst)
+TEST(RobotsTest, NoLeadingUserAgent)
 {
-    // Disallow must be preceeded by a User-Agent line
-    ASSERT_THROW(Rep::Robots("Disallow: /path"), std::invalid_argument);
-}
-
-TEST(RobotsTest, AllowFirst)
-{
-    // Allow must be preceeded by a User-Agent line
-    ASSERT_THROW(Rep::Robots("Allow: /path"), std::invalid_argument);
-}
-
-TEST(RobotsTest, CrawlDelayFirst)
-{
-    // Crawl-delay must be preceeded by a User-Agent line
-    ASSERT_THROW(Rep::Robots("Crawl-delay: 1"), std::invalid_argument);
+    // Assumed to be the default user agent
+    std::string content =
+        "Disallow: /path\n"
+        "Allow: /path/exception\n"
+        "Crawl-delay: 5.2\n";
+    Rep::Robots robot(content);
+    EXPECT_TRUE(robot.allowed("/path/exception", "agent"));
+    EXPECT_FALSE(robot.allowed("/path", "agent"));
+    EXPECT_NEAR(robot.agent("agent").delay(), 5.2, 0.000001);
 }
 
 TEST(RobotsTest, WellFormedCrawlDelay)
