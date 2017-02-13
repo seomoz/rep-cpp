@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 
+#include "url.h"
+
 #include "robots.h"
 
 TEST(RobotsTest, NoLeadingUserAgent)
@@ -179,6 +181,12 @@ TEST(RobotsTest, RobotsUrlNonDefaultPort)
     std::string url("http://user@example.com:8080/path;params?query#fragment");
     std::string expected("http://example.com:8080/robots.txt");
     EXPECT_EQ(expected, Rep::Robots::robotsUrl(url));
+}
+
+TEST(RobotsTest, RobotsUrlInvalidPort)
+{
+    std::string url("http://:::cnn.com/");
+    ASSERT_THROW(Rep::Robots::robotsUrl(url), Url::UrlParseException);
 }
 
 TEST(RobotsTest, RfcExample)
