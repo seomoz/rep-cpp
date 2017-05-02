@@ -162,6 +162,16 @@ TEST(RobotsTest, SkipMalformedLine)
     EXPECT_TRUE(robot.allowed("/no/colon/in/this/line", "agent"));
 }
 
+TEST(RobotsTest, DoubleLeadingSlash)
+{
+    std::string content =
+        "User-agent: agent\n"
+        "Disallow: //path\n";
+    Rep::Robots robot(content);
+    EXPECT_FALSE(robot.allowed("/path", "agent"));
+    EXPECT_TRUE(robot.allowed("/anotherpath", "agent"));
+}
+
 TEST(RobotsTest, RobotsUrlHttp)
 {
     std::string url("http://user@example.com:80/path;params?query#fragment");
