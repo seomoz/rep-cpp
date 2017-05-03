@@ -62,6 +62,31 @@ namespace Rep
 
     std::string Agent::escape(const std::string& query)
     {
-        return Url::Url(query).defrag().escape().fullpath();
+        // Special case: treat multiple leading slashes as one.
+        std::string query_;
+        if (query.size() > 1 && query[0] == '/')
+        {
+            query_.reserve(query.size());
+            query_.append(1, '/');
+            bool leading_slashes_consumed = false;
+            for (auto character : query)
+            {
+                if (leading_slashes_consumed)
+                {
+                    query_.append(1, character);
+                }
+                else if (character != '/')
+                {
+                    leading_slashes_consumed = true;
+                    query_.append(1, character);
+                }
+            }
+        }
+        else
+        {
+            query_.assign(query);
+        }
+
+        return Url::Url(query_).defrag().escape().fullpath();
     }
 }
