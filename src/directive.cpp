@@ -38,7 +38,7 @@ namespace Rep
                 star = false;
             }
         }
-        
+
         // Remove trailing '*'s
         std::string::reverse_iterator last =
             std::find_if(expression_.rbegin(), expression_.rend(),
