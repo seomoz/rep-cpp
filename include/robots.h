@@ -42,9 +42,12 @@ namespace Rep
         const Agent& agent(const std::string& name) const;
 
         /**
-         * Return true if agent is allowed to fetch the URL (either a full URL or a path).
+         * Return true if agent is allowed to fetch the URL (either a
+         * full URL or a path).
          */
         bool allowed(const std::string& path, const std::string& name) const;
+
+        std::string str() const;
 
         /**
          * Return the robots.txt URL corresponding to the provided URL.

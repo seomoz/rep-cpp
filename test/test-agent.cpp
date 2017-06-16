@@ -82,3 +82,11 @@ TEST(AgentTest, ParamsOnly)
     EXPECT_TRUE(agent.allowed("/"));
     EXPECT_FALSE(agent.allowed("/;params"));
 }
+
+TEST(AgentTest, Str)
+{
+    Rep::Agent agent{};
+    agent.disallow("/foo");
+    agent.allow("/bar");
+    EXPECT_EQ("[Directive(Disallow: /foo), Directive(Allow: /bar)]", agent.str());
+}

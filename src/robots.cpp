@@ -153,6 +153,26 @@ namespace Rep
         return agent(name).allowed(path);
     }
 
+    std::string Robots::str() const
+    {
+        std::stringstream out;
+        // TODO: include sitepath info
+        out << '{';
+        auto begin = agents_.begin();
+        auto end = agents_.end();
+        if (begin != end)
+        {
+            out << '"' << begin->first << '"' << ": " << begin->second.str();
+            ++begin;
+        }
+        for (; begin != end; ++begin)
+        {
+            out << ", \"" << begin->first << '"' << ": " << begin->second.str();
+        }
+        out << '}';
+        return out.str();
+    }
+
     std::string Robots::robotsUrl(const std::string& url)
     {
         return Url::Url(url)

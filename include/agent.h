@@ -53,6 +53,8 @@ namespace Rep
          */
         bool allowed(const std::string& path) const;
 
+        std::string str() const;
+
         /**
          * Canonically escape the provided query for matching purposes.
          */

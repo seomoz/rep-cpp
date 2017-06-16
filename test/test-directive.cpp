@@ -94,6 +94,12 @@ TEST(DirectiveTest, MultipleWildcardTest)
     }
 }
 
+TEST(DirectiveTest, Str)
+{
+    EXPECT_EQ("Allow: /foo", Rep::Directive("/foo", true).str());
+    EXPECT_EQ("Disallow: /bar", Rep::Directive("/bar", false).str());
+}
+
 TEST(GoogleTest, EmptyAndWildcard)
 {
     std::vector<std::string> examples = {

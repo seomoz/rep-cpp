@@ -45,6 +45,9 @@ namespace Rep
         {
             return allowed_;
         }
+
+        std::string str() const;
+
     private:
         std::string expression_;
         priority_t priority_;
