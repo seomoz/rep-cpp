@@ -1,6 +1,7 @@
 #include <algorithm>
-#include <string>
 #include <locale>
+#include <sstream>
+#include <string>
 
 #include "url.h"
 
@@ -106,6 +107,19 @@ namespace Rep
         {
             return false;
         }
+    }
+
+    std::string Directive::str() const
+    {
+        std::stringstream out;
+        if (allowed_)
+        {
+            out << "Allow: " << expression_;
+        }
+        else {
+            out << "Disallow: " << expression_;
+        }
+        return out.str();
     }
 
     bool Directive::match(const std::string& path) const

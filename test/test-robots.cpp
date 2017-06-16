@@ -272,3 +272,20 @@ TEST(RobotsTest, IgnoreBOM)
     EXPECT_TRUE(robot.allowed("/", "bot"));
     EXPECT_FALSE(robot.allowed("/disallowed", "bot"));
 }
+
+TEST(RobotsTest, Str)
+{
+    std::string content =
+        "User-agent: one\n"
+        "Disallow: /foo\n"
+        "Allow: /bar\n"
+        "User-agent: *\n"
+        "Allow: /foo\n"
+        "Disallow: /bar\n";
+
+    Rep::Robots robot(content);
+    EXPECT_EQ(
+        "{\"one\": [Directive(Disallow: /foo), Directive(Allow: /bar)],"
+        " \"*\": [Directive(Allow: /foo), Directive(Disallow: /bar)]}",
+        robot.str());
+}

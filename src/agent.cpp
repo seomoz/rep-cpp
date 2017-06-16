@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <sstream>
 
 #include "url.h"
 
@@ -58,6 +59,25 @@ namespace Rep
             }
         }
         return true;
+    }
+
+    std::string Agent::str() const
+    {
+        std::stringstream out;
+        out << '[';
+        auto begin = directives().begin();
+        auto end = directives().end();
+        if (begin != end)
+        {
+            out << "Directive(" << begin->str() << ')';
+            ++begin;
+        }
+        for (; begin != end; ++begin)
+        {
+            out << ", Directive(" << begin->str() << ')';
+        }
+        out << ']';
+        return out.str();
     }
 
     std::string Agent::escape(const std::string& query)
