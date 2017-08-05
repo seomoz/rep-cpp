@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <sstream>
+#include <regex>
 
 #include "url.h"
 
@@ -82,6 +83,14 @@ namespace Rep
 
     std::string Agent::escape(const std::string& query)
     {
-        return Url::Url(query).defrag().escape().fullpath();
+      	std::regex escaped_slash ("%2[Ff]");
+      	std::regex escaped_newline ("\n");
+      	std::string result;
+
+      	result = std::regex_replace(query, escaped_slash, "\n");
+
+      	std::string url = Url::Url(result).defrag().escape().fullpath();
+
+      	return std::regex_replace(url, escaped_newline, "%2F");
     }
 }
