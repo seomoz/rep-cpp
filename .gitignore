@@ -1,5 +1,6 @@
 # Binaries and build artifacts
 *.o
+*.a
 bench
 test-all
 
