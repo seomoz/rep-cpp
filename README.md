@@ -1,5 +1,8 @@
 Robots Exclusion Protocol Parser for C++
 ========================================
+
+[![Build Status](https://travis-ci.org/seomoz/rep-cpp.svg?branch=master)](https://travis-ci.org/seomoz/rep-cpp)
+
 Supports the [1996 RFC](http://www.robotstxt.org/norobots-rfc.txt), as well as some
 modern conventions, including:
 
