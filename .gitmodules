@@ -1,3 +1,7 @@
 [submodule "deps/url-cpp"]
 	path = deps/url-cpp
 	url = https://github.com/seomoz/url-cpp
+[submodule "deps/googletest"]
+	path = deps/googletest
+	url = https://github.com/google/googletest/
+	ignore = untracked
