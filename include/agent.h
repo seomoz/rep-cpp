@@ -18,7 +18,7 @@ namespace Rep
         /**
          * Construct an agent.
          */
-        Agent(): directives_(), delay_(-1.0), sorted_(true) {}
+        Agent() : directives_(), delay_(-1.0), sorted_(true) {}
 
         /**
          * Add an allowed directive.

@@ -53,7 +53,10 @@ namespace Rep
         return false;
     }
 
-    Robots::Robots(const std::string& content): agents_(), sitemaps_(), default_(agents_["*"])
+    Robots::Robots(const std::string& content) :
+        agents_(),
+        sitemaps_(),
+        default_(agents_["*"])
     {
         std::string agent_name("*");
         std::istringstream input(content);
