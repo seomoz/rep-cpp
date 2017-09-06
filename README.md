@@ -48,7 +48,7 @@ Here's an example of parsing a robots.txt file:
 #include "robots.h"
 
 std::string content = "...";
-Rep::Robots robots = Rep::Robots::parse(content);
+Rep::Robots robots = Rep::Robots(content);
 
 // Is this path allowed to the provided agent?
 robots.allowed("/some/path", "my-agent");
@@ -60,7 +60,7 @@ robots.url_allowed("http://example.com/some/path", "my-agent");
 If a client is interested only in the exclusion rules of a single agent, then:
 
 ```c++
-Rep::Agent agent = Rep::Robots::parse(content).agent("my-agent");
+Rep::Agent agent = Rep::Robots(content).agent("my-agent");
 
 // Is this path allowed to this agent?
 agent.allowed("/some/path");
