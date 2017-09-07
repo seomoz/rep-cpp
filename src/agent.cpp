@@ -76,7 +76,7 @@ namespace Rep
             return true;
         }
 
-        for (auto directive : directives())
+        for (const auto& directive : directives())
         {
             if (directive.match(path))
             {
@@ -90,8 +90,9 @@ namespace Rep
     {
         std::stringstream out;
         out << '[';
-        auto begin = directives().begin();
-        auto end = directives().end();
+        const auto& d = directives();
+        auto begin = d.begin();
+        auto end = d.end();
         if (begin != end)
         {
             out << "Directive(" << begin->str() << ')';
