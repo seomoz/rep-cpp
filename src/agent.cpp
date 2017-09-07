@@ -6,11 +6,25 @@
 #include "agent.h"
 #include "directive.h"
 
+namespace
+{
+    std::string escape_url(Url::Url& url)
+    {
+        return url.defrag().escape().fullpath();
+    }
+}
+
 namespace Rep
 {
     Agent& Agent::allow(const std::string& query)
     {
-        directives_.push_back(Directive(escape(query), true));
+        Url::Url url(query);
+        // ignore directives for external URLs
+        if (is_external(url))
+        {
+            return *this;
+        }
+        directives_.push_back(Directive(escape_url(url), true));
         sorted_ = false;
         return *this;
     }
@@ -24,7 +38,13 @@ namespace Rep
         }
         else
         {
-            directives_.push_back(Directive(escape(query), false));
+            Url::Url url(query);
+            // ignore directives for external URLs
+            if (is_external(url))
+            {
+                return *this;
+            }
+            directives_.push_back(Directive(escape_url(url), false));
         }
         sorted_ = false;
         return *this;
@@ -44,7 +64,12 @@ namespace Rep
 
     bool Agent::allowed(const std::string& query) const
     {
-        std::string path(escape(query));
+        Url::Url url(query);
+        if (is_external(url))
+        {
+            return false;
+        }
+        std::string path(escape_url(url));
 
         if (path.compare("/robots.txt") == 0)
         {
@@ -80,8 +105,8 @@ namespace Rep
         return out.str();
     }
 
-    std::string Agent::escape(const std::string& query)
+    bool Agent::is_external(const Url::Url& url) const
     {
-        return Url::Url(query).defrag().escape().fullpath();
+        return !host_.empty() && !url.host().empty() && url.host() != host_;
     }
 }

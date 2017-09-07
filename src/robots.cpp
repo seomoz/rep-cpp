@@ -54,9 +54,15 @@ namespace Rep
     }
 
     Robots::Robots(const std::string& content) :
+        Robots(content, "")
+    {
+    }
+
+    Robots::Robots(const std::string& content, const std::string& base_url) :
+        host_(Url::Url(base_url).host()),
         agents_(),
         sitemaps_(),
-        default_(agents_["*"])
+        default_(agents_.emplace("*", Agent(host_)).first->second)
     {
         std::string agent_name("*");
         std::istringstream input(content);
@@ -85,12 +91,12 @@ namespace Rep
                     {
                         for (auto other : group)
                         {
-                            agents_[other] = current->second;
+                            agents_.emplace(other, current->second);
                         }
                         group.clear();
                     }
                     agent_name = value;
-                    current = agents_.emplace(agent_name, Agent()).first;
+                    current = agents_.emplace(agent_name, Agent(host_)).first;
                 }
                 last_agent = true;
                 continue;
@@ -129,7 +135,7 @@ namespace Rep
         {
             for (auto other : group)
             {
-                agents_[other] = current->second;
+                agents_.emplace(other, current->second);
             }
         }
     }

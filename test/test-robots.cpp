@@ -289,3 +289,33 @@ TEST(RobotsTest, Str)
         " \"*\": [Directive(Allow: /foo), Directive(Disallow: /bar)]}",
         robot.str());
 }
+
+TEST(RobotsTest, IgnoresExternalDisallow)
+{
+    std::string content =
+        "User-agent: one\n"
+        "Allow: /path\n"
+        "Disallow: http://b.com/external\n";
+
+    Rep::Robots robot(content, "http://a.com/robots.txt");
+    EXPECT_TRUE(robot.allowed("/path", "one"));
+    EXPECT_TRUE(robot.allowed("/external", "one"));
+}
+
+TEST(RobotsTest, IgnoresExternalAllow)
+{
+    std::string content =
+        "User-agent: one\n"
+        "Disallow: /path\n"
+        "Allow: http://b.com/path/external\n";
+
+    Rep::Robots robot(content, "http://a.com/robots.txt");
+    EXPECT_FALSE(robot.allowed("/path", "one"));
+    EXPECT_FALSE(robot.allowed("/path/external", "one"));
+}
+
+TEST(RobotsTest, NeverExternalAllowed)
+{
+    Rep::Robots robot("", "http://a.com/robots.txt");
+    EXPECT_FALSE(robot.allowed("http://b.com/", "one"));
+}
