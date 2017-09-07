@@ -48,6 +48,15 @@ TEST(RobotsTest, HonorsDefaultAgent)
     EXPECT_TRUE(robot.allowed("/path", "agent"));
 }
 
+TEST(RobotsTest, EscapedSlash)
+{
+    std::string content =
+        "User-agent: *\n"
+        "Disallow: /*%2F\n";
+    Rep::Robots robot(content);
+    EXPECT_TRUE(robot.allowed("/tmp/", "one"));
+}
+
 TEST(RobotsTest, HonorsSpecificAgent)
 {
     std::string content =
