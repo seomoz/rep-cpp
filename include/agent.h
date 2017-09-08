@@ -20,6 +20,11 @@ namespace Rep
         typedef float delay_t;
 
         /**
+         * Default constructor
+         */
+        Agent() : Agent("") {}
+
+        /**
          * Construct an agent.
          */
         explicit Agent(const std::string& host) :
