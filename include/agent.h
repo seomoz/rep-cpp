@@ -5,10 +5,14 @@
 
 #include "directive.h"
 
+// forward declaration
+namespace Url
+{
+    class Url;
+}
 
 namespace Rep
 {
-
     class Agent
     {
     public:
@@ -18,7 +22,8 @@ namespace Rep
         /**
          * Construct an agent.
          */
-        Agent() : directives_(), delay_(-1.0), sorted_(true) {}
+        explicit Agent(const std::string& host) :
+            directives_(), delay_(-1.0), sorted_(true), host_(host) {}
 
         /**
          * Add an allowed directive.
@@ -55,15 +60,13 @@ namespace Rep
 
         std::string str() const;
 
-        /**
-         * Canonically escape the provided query for matching purposes.
-         */
-        static std::string escape(const std::string& query);
-
     private:
+        bool is_external(const Url::Url& url) const;
+
         mutable std::vector<Directive> directives_;
         delay_t delay_;
         mutable bool sorted_;
+        std::string host_;
     };
 }
 
