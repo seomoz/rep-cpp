@@ -19,10 +19,20 @@ namespace Rep
         Directive() = delete;
 
         /**
-         * The input to this constructor must be stripped of comments and trailing
-         * whitespace.
+         * The input to this constructor must be stripped of comments
+         * and trailing whitespace.
          */
         Directive(const std::string& line, bool allowed);
+
+        /**
+         * Default copy constructor.
+         */
+        Directive(const Directive& rhs) = default;
+
+        /**
+         * Default move constructor.
+         */
+        Directive(Directive&& rhs) = default;
 
         /**
          * The priority of the rule.
@@ -33,8 +43,8 @@ namespace Rep
         }
 
         /**
-         * Whether or not the provided path matches. The path is expected to be properly
-         * escaped.
+         * Whether or not the provided path matches. The path is
+         * expected to be properly escaped.
          */
         bool match(const std::string& path) const;
 
@@ -47,6 +57,11 @@ namespace Rep
         }
 
         std::string str() const;
+
+        /**
+         * Default copy assignment operator.
+         */
+        Directive& operator=(const Directive& rhs) = default;
 
     private:
         std::string expression_;

@@ -31,6 +31,16 @@ namespace Rep
             directives_(), delay_(-1.0), sorted_(true), host_(host) {}
 
         /**
+         * Default copy constructor.
+         */
+        Agent(const Agent& rhs) = default;
+
+        /**
+         * Default move constructor.
+         */
+        Agent(Agent&& rhs) = default;
+
+        /**
          * Add an allowed directive.
          */
         Agent& allow(const std::string& query);
@@ -64,6 +74,11 @@ namespace Rep
         bool allowed(const std::string& path) const;
 
         std::string str() const;
+
+        /**
+         * Default copy assignment operator.
+         */
+        Agent& operator=(const Agent& rhs) = default;
 
     private:
         bool is_external(const Url::Url& url) const;
