@@ -116,3 +116,12 @@ TEST(AgentTest, Str)
     agent.allow("/bar");
     EXPECT_EQ("[Directive(Disallow: /foo), Directive(Allow: /bar)]", agent.str());
 }
+
+TEST(AgentTest, StrWithDelay)
+{
+    Rep::Agent agent("a.com");
+    agent.delay(1.0);
+    agent.disallow("/foo");
+    agent.allow("/bar");
+    EXPECT_EQ("Crawl-Delay: 1 [Directive(Disallow: /foo), Directive(Allow: /bar)]", agent.str());
+}
