@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iomanip>
 #include <sstream>
 
 #include "url.h"
@@ -89,6 +90,10 @@ namespace Rep
     std::string Agent::str() const
     {
         std::stringstream out;
+        if (delay_ > 0)
+        {
+            out << "Crawl-Delay: " << std::setprecision(3) << delay_ << ' ';
+        }
         out << '[';
         const auto& d = directives();
         auto begin = d.begin();
