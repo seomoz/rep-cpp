@@ -8,7 +8,7 @@
 // forward declaration
 namespace Url
 {
-    class Url;
+    struct Url;
 }
 
 namespace Rep
