@@ -60,6 +60,17 @@ TEST(AgentTest, DisallowNone)
     EXPECT_TRUE(agent.allowed("/anything"));
 }
 
+TEST(AgentTest, MiddleWildcard)
+{
+    Rep::Agent agent = Rep::Agent("a.com").disallow("/test*foo");
+    EXPECT_FALSE(agent.allowed("/testfoo"));
+    EXPECT_FALSE(agent.allowed("/testafoo"));
+    EXPECT_FALSE(agent.allowed("/testaasdffoo"));
+    EXPECT_FALSE(agent.allowed("/test/foo"));
+    EXPECT_TRUE(agent.allowed("/testfo"));
+    EXPECT_TRUE(agent.allowed("/estfoo"));
+}
+
 TEST(AgentTest, EscapedRule)
 {
     Rep::Agent agent = Rep::Agent("a.com").disallow("/a%3cd.html");
