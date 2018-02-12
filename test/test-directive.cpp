@@ -70,6 +70,33 @@ TEST(DirectiveTest, WildcardTest)
     }
 }
 
+TEST(DirectiveTest, LeadingWildcard)
+{
+    std::vector<std::string> examples = {
+        "/test",
+        "/a/test",
+        "/ab/test",
+        "/abc/test",
+    };
+    std::string directive("*/test");
+    Rep::Directive parsed(directive, true);
+    for (auto example : examples)
+    {
+        EXPECT_TRUE(parsed.match(example)) <<
+            example << " didn't match " << directive;
+    }
+
+    std::vector<std::string> antiexamples = {
+        "/tes",
+        "/est",
+    };
+    for (auto example : antiexamples)
+    {
+        EXPECT_FALSE(parsed.match(example)) <<
+            example << " matched " << directive;
+    }
+}
+
 TEST(DirectiveTest, MultipleWildcardTest)
 {
     std::vector<std::string> examples = {
