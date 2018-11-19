@@ -5,7 +5,8 @@
 TEST(AgentTest, Basic)
 {
     Rep::Agent agent = Rep::Agent("a.com").allow("/").disallow("/foo");
-    EXPECT_EQ(agent.directives().size(), 2);
+    auto expectedSize = static_cast<std::vector<Rep::Directive>::size_type>(2);
+    EXPECT_EQ(agent.directives().size(), expectedSize);
 }
 
 TEST(AgentTest, ChecksAllowed)
