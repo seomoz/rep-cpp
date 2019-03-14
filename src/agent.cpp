@@ -25,7 +25,7 @@ namespace Rep
         {
             return *this;
         }
-        directives_.push_back(Directive(escape_url(url), true));
+        directives_.push_back(Directive(url.defrag().escape().str(), true));
         sorted_ = false;
         return *this;
     }
@@ -45,7 +45,8 @@ namespace Rep
             {
                 return *this;
             }
-            directives_.push_back(Directive(escape_url(url), false));
+
+            directives_.push_back(Directive(url.defrag().escape().str(), false));
         }
         sorted_ = false;
         return *this;
