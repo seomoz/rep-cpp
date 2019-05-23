@@ -9,7 +9,7 @@ BINARIES      =
 all: test release/librep.o $(BINARIES)
 
 $(GTEST_DIR)/libgtest.a:
-	g++ -isystem $(GTEST_DIR)/include -I$(GTEST_DIR) -pthread -c $(GTEST_DIR)/src/gtest-all.cc -o $(GTEST_DIR)/libgtest.a
+	g++ -std=c++11 -isystem $(GTEST_DIR)/include -I$(GTEST_DIR) -pthread -c $(GTEST_DIR)/src/gtest-all.cc -o $(GTEST_DIR)/libgtest.a
 
 # Release libraries
 release:
@@ -60,4 +60,4 @@ test: test-all
 	./scripts/check-coverage.sh $(PWD)
 
 clean:
-	rm -rf debug release test-all bench test/*.o deps/url-cpp/{debug,release}
+	rm -rf debug release test-all bench test/*.o test/*.gcda test/*.gcno deps/url-cpp/debug deps/url-cpp/release
