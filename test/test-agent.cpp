@@ -5,7 +5,7 @@
 TEST(AgentTest, Basic)
 {
     Rep::Agent agent = Rep::Agent("a.com").allow("/").disallow("/foo");
-    EXPECT_EQ(agent.directives().size(), 2);
+    EXPECT_EQ(agent.directives().size(), 2ul);
 }
 
 TEST(AgentTest, ChecksAllowed)
