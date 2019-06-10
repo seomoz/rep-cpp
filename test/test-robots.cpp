@@ -319,21 +319,3 @@ TEST(RobotsTest, NeverExternalAllowed)
     Rep::Robots robot("", "http://a.com/robots.txt");
     EXPECT_FALSE(robot.allowed("http://b.com/", "one"));
 }
-
-TEST(RobotsTest, PrefixStarExample)
-{
-    std::string content =
-        "# /robots.txt for fun and profit\n"
-        "\n"
-        "User-agent: ohmagad\n"
-        "Allow: /\n"
-        "Disallow: */dir\n"
-        "Disallow: /*/dir\n";
-    Rep::Robots robot(content);
-
-    // The ohmagad bot
-    EXPECT_TRUE(robot.allowed("/", "ohmagad"));
-    EXPECT_TRUE(robot.allowed("/a/b/page.html", "ohmagad"));
-    EXPECT_FALSE(robot.allowed("/dir/page.html", "ohmagad"));
-    EXPECT_FALSE(robot.allowed("/some/dir/page.html", "ohmagad"));
-}
