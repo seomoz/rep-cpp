@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <iomanip>
 #include <sstream>
-
 #include "url.h"
 
 #include "agent.h"
@@ -13,17 +12,31 @@ namespace
     {
         return url.defrag().escape().fullpath();
     }
+
+    std::string trim_front(const std::string& str, const char chr)
+    {
+        auto itr = std::find_if(str.begin(), str.end(),
+                       [chr](const char c) {return c != chr;});
+        return std::string(itr, str.end());
+    }
 }
 
 namespace Rep
 {
     Agent& Agent::allow(const std::string& query)
     {
+
         Url::Url url(query);
         // ignore directives for external URLs
         if (is_external(url))
         {
             return *this;
+        }
+        // leading wildcard?
+        if (query.front() == '*')
+        {
+            Url::Url trimmed(trim_front(query, '*'));
+            directives_.push_back(Directive(escape_url(trimmed), true));
         }
         directives_.push_back(Directive(escape_url(url), true));
         sorted_ = false;
@@ -45,6 +58,12 @@ namespace Rep
             {
                 return *this;
             }
+            // leading wildcard?
+            if (query.front() == '*')
+            {
+                Url::Url trimmed(trim_front(query, '*'));
+                directives_.push_back(Directive(escape_url(trimmed), false));
+            }
             directives_.push_back(Directive(escape_url(url), false));
         }
         sorted_ = false;
@@ -55,9 +74,10 @@ namespace Rep
     {
         if (!sorted_)
         {
-            std::sort(directives_.begin(), directives_.end(), [](const Directive& a, const Directive& b) {
-                return b.priority() < a.priority();
-            });
+            std::sort(directives_.begin(), directives_.end(),
+                [](const Directive& a, const Directive& b) {
+                    return b.priority() < a.priority();
+                });
             sorted_ = true;
         }
         return directives_;

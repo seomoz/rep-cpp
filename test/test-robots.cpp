@@ -320,7 +320,25 @@ TEST(RobotsTest, NeverExternalAllowed)
     EXPECT_FALSE(robot.allowed("http://b.com/", "one"));
 }
 
-TEST(RobotsTest, LeadingWildcard)
+TEST(RobotsTest, LeadingWildcardAllow)
+{
+    std::string content =
+        "User-agent: meow\n"
+        "Disallow: /\n"
+        "Allow: ****/cats\n"
+        "Allow: */kangaroos\n";
+    Rep::Robots robot(content);
+
+    EXPECT_FALSE(robot.allowed("/kangaroo/zebra/cat/page.html", "meow"));
+    EXPECT_TRUE(robot.allowed("/cats.html", "meow"));
+    EXPECT_TRUE(robot.allowed("/cats/page.html", "meow"));
+    EXPECT_TRUE(robot.allowed("/get/more/cats/page.html", "meow"));
+    EXPECT_TRUE(robot.allowed("/kangaroos/page.html", "meow"));
+    EXPECT_TRUE(robot.allowed("/heaps/of/kangaroos/page.html", "meow"));
+    EXPECT_TRUE(robot.allowed("/kangaroosandkoalas/page.html", "meow"));
+}
+
+TEST(RobotsTest, LeadingWildcardDisallow)
 {
     std::string content =
         "User-agent: meow\n"
@@ -329,7 +347,6 @@ TEST(RobotsTest, LeadingWildcard)
         "Disallow: */kangaroos\n";
     Rep::Robots robot(content);
 
-    // The meow bot
     EXPECT_TRUE(robot.allowed("/kangaroo/zebra/cat/page.html", "meow"));
     EXPECT_FALSE(robot.allowed("/cats.html", "meow"));
     EXPECT_FALSE(robot.allowed("/cats/page.html", "meow"));
