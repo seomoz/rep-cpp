@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <iomanip>
 #include <sstream>
+
 #include "url.h"
 
 #include "agent.h"
@@ -25,7 +26,6 @@ namespace Rep
 {
     Agent& Agent::allow(const std::string& query)
     {
-
         Url::Url url(query);
         // ignore directives for external URLs
         if (is_external(url))
