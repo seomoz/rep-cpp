@@ -71,7 +71,7 @@ namespace Rep
         /**
          * Return true if the URL (either a full URL or a path) is allowed.
          */
-        bool allowed(const std::string& path) const;
+        bool allowed(const std::string& query) const;
 
         std::string str() const;
 

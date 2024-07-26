@@ -1,10 +1,14 @@
 #include <algorithm>
 #include <functional>
 #include <cctype>
+#include <cstddef>
+#include <exception>
 #include <locale>
 #include <sstream>
+#include <string>
 #include <iostream>
 #include <unordered_map>
+#include <vector>
 
 #include "url.h"
 
@@ -76,7 +80,7 @@ namespace Rep
         agent_map_t::iterator current = agents_.find("*");
         while (Robots::getpair(input, key, value))
         {
-            if (key.compare("user-agent") == 0)
+            if (key =="user-agent")
             {
                 // Store the user agent string as lowercased
                 std::transform(value.begin(), value.end(), value.begin(), ::tolower);
@@ -106,19 +110,19 @@ namespace Rep
                 last_agent = false;
             }
 
-            if (key.compare("sitemap") == 0)
+            if (key == "sitemap")
             {
                 sitemaps_.push_back(value);
             }
-            else if (key.compare("disallow") == 0)
+            else if (key == "disallow")
             {
                 current->second.disallow(value);
             }
-            else if (key.compare("allow") == 0)
+            else if (key == "allow")
             {
                 current->second.allow(value);
             }
-            else if (key.compare("crawl-delay") == 0)
+            else if (key == "crawl-delay")
             {
                 try
                 {

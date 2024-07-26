@@ -1,6 +1,8 @@
 #include <algorithm>
 #include <iomanip>
 #include <sstream>
+#include <string>
+#include <vector>
 
 #include "url.h"
 
@@ -92,7 +94,7 @@ namespace Rep
         }
         std::string path(escape_url(url));
 
-        if (path.compare("/robots.txt") == 0)
+        if (path == "/robots.txt")
         {
             return true;
         }
